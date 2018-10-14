@@ -1,0 +1,45 @@
+##############################################################
+#SCRIPT FOR SPEEDING UP DLX PROCESSOR COMPILATION IN MODELSIM#
+# analyzing and checking vhdl netlist#
+# here the analyze command is used for each file from bottom to top #
+##############################################################
+vcom "DLX_vhd_fully_synthesizable/000-globals.vhd"
+#P4addersub components
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/fa.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/rca.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/G.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/PG.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/prop_gen_Cin.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/prop_gen.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/STCG.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/CSB.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/sumgen.vhd"
+#ALU components
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.a-LogicUnit.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4addersub.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.c-ComparatorUnit.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.d-Shifter.vhd"
+# Datapath components
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.b-Mux21_generic.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.c-Reg.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.d-RegisterFile.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.f-SignExtend.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.g-BranchMgmt.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.h-FlipFlop.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.i-Mux21.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.l-ForwardingUnit.vhd"
+# DLX Components
+vcom -2008 "DLX_vhd_fully_synthesizable/a.a-CU_HW.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.b-DataPath.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.c-IRAM.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.d-DataMemory.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.e-BTB.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.f-NPC_logic.vhd"
+vcom "DLX_vhd_fully_synthesizable/a.g-HazardUnit.vhd"
+# DLX
+vcom "DLX_vhd_fully_synthesizable/a-DLX.vhd"
+vcom "DLX_vhd_fully_synthesizable/TB_DLX.vhd"
+
+# Start Simulation
+vsim -gui -t 10ps work.tb_dlx
