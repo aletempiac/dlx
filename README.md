@@ -1,4 +1,6 @@
 DLX processor project
-Developers: Alessandro Tempia Calvino, Fausto Chiatante
+Developers: Alessandro Tempia Calvino, Fausto Chiatante.
 
-Actually in developing.
+Open in development, next steps:
+*Documentation
+*Optimize and improve FP adder
