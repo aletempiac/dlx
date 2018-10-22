@@ -20,49 +20,25 @@ begin
 
   process(A_MSB, B_MSB, SUBIN_eq0, COUT, SIGN_UNSIGN, OP)
   begin
+    CU_OUT<=(others=>'0');
     if ((SIGN_UNSIGN='1') and ((A_MSB xor B_MSB)='1')) then
-      if (A_MSB='0') then
-        case OP is
-          when 0 => CU_OUT<=(others=>'0'); --SES
-          when 1 => CU_OUT<=(0=>'1', others=>'0'); --SNES
-          when 2 => CU_OUT<=(others=>'0'); --SLTS
-          when 3 => CU_OUT<=(0=>'1', others=>'0'); --SGTS
-          when 4 => CU_OUT<=(others=>'0'); --SLES
-          when 5 => CU_OUT<=(0=>'1', others=>'0'); --SGES
-          when others => CU_OUT<=(others=>'0');
-        end case;
-      else
-        case OP is
-          when 0 => CU_OUT<=(others=>'0'); --SES
-          when 1 => CU_OUT<=(0=>'1', others=>'0'); --SNES
-          when 2 => CU_OUT<=(0=>'1', others=>'0'); --SLTS
-          when 3 => CU_OUT<=(others=>'0'); --SGTS
-          when 4 => CU_OUT<=(0=>'1', others=>'0'); --SLES
-          when 5 => CU_OUT<=(others=>'0'); --SGES
-          when others => CU_OUT<=(others=>'0');
-        end case;
-      end if;
-    else
-      CU_OUT<=(others=>'0');
       case OP is
-        when 0 => if (SUBIN_eq0='1') then --SES
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
-        when 1 => if (SUBIN_eq0='0') then --SNES
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
-        when 2 => if (COUT='0') then  --SLTS
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
-        when 3 => if(COUT='1' and SUBIN_eq0='0') then --SGTS
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
-        when 4 => if(COUT='0' or SUBIN_eq0='1') then --SLES
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
-        when 5 => if (COUT='1') then --SGES
-                    CU_OUT<=(0=>'1', others=>'0');
-                  end if;
+        when 0 => CU_OUT(0)<='0'; --SES
+        when 1 => CU_OUT(0)<='1'; --SNES
+        when 2 => CU_OUT(0)<=A_MSB; --SLTS
+        when 3 => CU_OUT(0)<=not(A_MSB); --SGTS
+        when 4 => CU_OUT(0)<=A_MSB; --SLES
+        when 5 => CU_OUT(0)<=not(A_MSB); --SGES
+        when others => CU_OUT<=(others=>'0');
+      end case;
+    else
+      case OP is
+        when 0 => CU_OUT(0)<=SUBIN_eq0; --SES
+        when 1 => CU_OUT(0)<=not(SUBIN_eq0); --SNES
+        when 2 => CU_OUT <= not(COUT); --SLTS
+        when 3 =>  CU_OUT <= (COUT and not(SUBIN_eq0)); --SGTS
+        when 4 =>  CU_OUT <= (not(COUT) or SUBIN_eq0); --SLES
+        when 5 =>  CU_OUT <= COUT; --SGES
         when others => CU_OUT<=(others=>'0');
       end case;
     end if;
