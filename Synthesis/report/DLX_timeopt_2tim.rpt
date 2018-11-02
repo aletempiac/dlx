@@ -1,0 +1,86 @@
+Warning: Design 'DLX_IR_SIZE32_PC_SIZE32' has '19' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : DLX_IR_SIZE32_PC_SIZE32
+Version: Z-2007.03-SP1
+Date   : Tue Oct 30 14:47:45 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: IR_reg[25] (rising edge-triggered flip-flop clocked by Clk)
+  Endpoint: BTB_0/pc_target_reg[12][0]
+            (rising edge-triggered flip-flop clocked by Clk)
+  Path Group: Clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  DLX_IR_SIZE32_PC_SIZE32
+                     5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock Clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  IR_reg[25]/CK (DFFR_X1)                                 0.00 #     0.00 r
+  IR_reg[25]/Q (DFFR_X1)                                  0.13       0.13 r
+  DP_I/RS1[4] (datapath_NUMBIT32_ADDRESS_WIDTH_RF5_ADDRESS_WIDTH_DM32)
+                                                          0.00       0.13 r
+  DP_I/FORWARDING_UNIT_0/RS1[4] (ForwardingUnit_NUMBIT32_ADDRESS_WIDTH_RF5)
+                                                          0.00       0.13 r
+  DP_I/FORWARDING_UNIT_0/U96/ZN (INV_X1)                  0.05       0.18 f
+  DP_I/FORWARDING_UNIT_0/U95/Z (XOR2_X1)                  0.05       0.23 r
+  DP_I/FORWARDING_UNIT_0/U57/ZN (AND4_X1)                 0.06       0.29 r
+  DP_I/FORWARDING_UNIT_0/U56/ZN (NAND2_X1)                0.03       0.32 f
+  DP_I/FORWARDING_UNIT_0/U61/ZN (NOR2_X2)                 0.07       0.39 r
+  DP_I/FORWARDING_UNIT_0/ForwardD[0] (ForwardingUnit_NUMBIT32_ADDRESS_WIDTH_RF5)
+                                                          0.00       0.39 r
+  DP_I/U324/ZN (OR2_X1)                                   0.05       0.44 r
+  DP_I/U326/ZN (INV_X1)                                   0.03       0.47 f
+  DP_I/U327/ZN (INV_X2)                                   0.06       0.53 r
+  DP_I/U57/ZN (OAI221_X1)                                 0.05       0.58 f
+  DP_I/BranchMgmt_0/Rin[13] (BranchMgmt_NUMBIT32)         0.00       0.58 f
+  DP_I/BranchMgmt_0/U8/ZN (NOR4_X1)                       0.10       0.68 r
+  DP_I/BranchMgmt_0/U5/ZN (NAND4_X1)                      0.05       0.73 f
+  DP_I/BranchMgmt_0/U4/ZN (NOR2_X1)                       0.05       0.78 r
+  DP_I/BranchMgmt_0/U3/ZN (XNOR2_X1)                      0.06       0.84 r
+  DP_I/BranchMgmt_0/U2/ZN (OR2_X1)                        0.03       0.87 r
+  DP_I/BranchMgmt_0/Branch (BranchMgmt_NUMBIT32)          0.00       0.87 r
+  DP_I/mux_BRANCH/A (MUX21)                               0.00       0.87 r
+  DP_I/mux_BRANCH/U4/ZN (AOI22_X1)                        0.03       0.90 f
+  DP_I/mux_BRANCH/U2/ZN (INV_X1)                          0.03       0.93 r
+  DP_I/mux_BRANCH/U1/Z (BUF_X2)                           0.05       0.97 r
+  DP_I/mux_BRANCH/Y (MUX21)                               0.00       0.97 r
+  DP_I/BRANCH_CTRL_SIG (datapath_NUMBIT32_ADDRESS_WIDTH_RF5_ADDRESS_WIDTH_DM32)
+                                                          0.00       0.97 r
+  BTB_0/SetT_NT (BTB_PC_SIZE32_BTBSIZE5)                  0.00       0.97 r
+  BTB_0/U1718/ZN (AND4_X1)                                0.07       1.05 r
+  BTB_0/U2174/ZN (AND2_X1)                                0.05       1.09 r
+  BTB_0/U2188/ZN (AND2_X2)                                0.06       1.16 r
+  BTB_0/U1593/ZN (NAND2_X2)                               0.13       1.28 f
+  BTB_0/U1591/ZN (INV_X2)                                 0.20       1.48 r
+  BTB_0/U990/ZN (OAI22_X1)                                0.06       1.54 f
+  BTB_0/pc_target_reg[12][0]/D (DFFR_X1)                  0.01       1.55 f
+  data arrival time                                                  1.55
+
+  clock Clk (rise edge)                                   1.60       1.60
+  clock network delay (ideal)                             0.00       1.60
+  BTB_0/pc_target_reg[12][0]/CK (DFFR_X1)                 0.00       1.60 r
+  library setup time                                     -0.05       1.55
+  data required time                                                 1.55
+  --------------------------------------------------------------------------
+  data required time                                                 1.55
+  data arrival time                                                 -1.55
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

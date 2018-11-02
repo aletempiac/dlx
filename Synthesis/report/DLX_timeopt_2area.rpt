@@ -1,0 +1,25 @@
+Warning: Design 'DLX_IR_SIZE32_PC_SIZE32' has '19' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+Report : area
+Design : DLX_IR_SIZE32_PC_SIZE32
+Version: Z-2007.03-SP1
+Date   : Tue Oct 30 14:47:45 2018
+****************************************
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/mariagrazia.graziano/do/libnangate/NangateOpenCellLibrary_typical_ecsm.db)
+
+Number of ports:              197
+Number of nets:               754
+Number of cells:              327
+Number of references:          18
+
+Combinational area:       10708.096090
+Noncombinational area:    14177.268454
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:          24885.365234
+Total area:                 undefined
+1

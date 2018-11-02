@@ -1,0 +1,91 @@
+##############################################################
+#SCRIPT FOR SPEEDING UP and RECORDING the DLX PROCESSOR SYNTHESIS#
+# analyzing and checking vhdl netlist#
+# here the analyze command is used for each file from bottom to top #
+##############################################################
+exec mkdir -p work
+exec mkdir -p report
+exec mkdir -p arch
+
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/000-globals.vhd}
+#P4addersub components
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/fa.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/rca.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/G.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/PG.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/prop_gen_Cin.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/prop_gen.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/STCG.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/CSB.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4adder.core/sumgen.vhd}
+#ALU components
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.a-LogicUnit.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.b-P4addersub.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.c-ComparatorUnit.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.core/a.b.a.d-Shifter.vhd}
+# Datapath components
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.a-ALU.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.b-Mux21_generic.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.c-Reg.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.d-RegisterFile.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.f-SignExtend.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.g-BranchMgmt.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.h-FlipFlop.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.i-Mux21.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.core/a.b.l-ForwardingUnit.vhd}
+# DLX Components
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.a-CU_HW.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.b-DataPath.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.e-BTB.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.f-NPC_logic.vhd}
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a.g-HazardUnit.vhd}
+# DLX
+analyze -library WORK -format vhdl {DLX_vhd_fully_synthesizable/a-DLX.vhd}
+
+##############################################################
+elaborate DLX -architecture dlx_rtl -parameters "IR_SIZE = 32, PC_SIZE = 32"
+current_design DLX_IR_SIZE32_PC_SIZE32
+##############################################################
+
+##############################################################
+characterize DP_I/alu_0/P4addersub_0
+current_design P4addersub_N32
+compile
+set_max_delay 0.7 -from [all_inputs] -to [all_outputs]
+compile -map_effort high -incremental_mapping
+current_design DLX_IR_SIZE32_PC_SIZE32
+set_dont_touch {DP_I/alu_0/P4addersub_0 DP_I/P4adder_branching} true
+##############################################################
+
+##############################################################
+characterize DP_I/alu_0/ComparatorUnit_0
+current_design ComparatorUnit
+compile
+set_max_delay 0.95 -from [all_inputs] -to [all_outputs]
+compile -map_effort high -incremental_mapping
+current_design DLX_IR_SIZE32_PC_SIZE32
+set_dont_touch {DP_I/alu_0/ComparatorUnit_0} true
+##############################################################
+
+##############################################################
+characterize DP_I/alu_0
+current_design alu_NUMBIT32
+compile
+set_max_delay 1.3 -from [all_inputs] -to [all_outputs]
+compile -map_effort high -incremental_mapping
+current_design DLX_IR_SIZE32_PC_SIZE32
+set_dont_touch {DP_I/alu_0} true
+##############################################################
+
+create_clock -name "Clk" -period 1.6 Clk
+set_max_delay 1.6 -from [all_inputs] -to [all_outputs]
+# optimize
+compile -map_effort high -incremental_mapping
+# save report
+report_timing > report/DLX_timeopt_2tim.rpt
+report_area > report/DLX_timeopt_2area.rpt
+report_power > report/DLX_timeopt_2pow.rpt
+# saving files
+write -hierarchy -format ddc -output arch/DLX-structural-topt.ddc
+write -hierarchy -format vhdl -output arch/DLX-structural-topt.vhdl
+write -hierarchy -format verilog -output arch/DLX-structural-topt.v
