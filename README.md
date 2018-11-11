@@ -9,6 +9,8 @@ The project contains all the vhdl code of a processor, see the report for furthe
 
 In order to simulate the design, use the compiler Simulation/assembler.sh
 For instance in the command line:
-`./assebler.sh ASM_file.txt`
+```
+./assebler.sh ASM_file.txt
+```
 It will generate the machine code that will be read by the Instruction Memory at the start of the simulation.
 Just use the script **_DLX_sim.scr_**  for compiling in ModelSim.
