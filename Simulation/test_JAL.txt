@@ -1,0 +1,23 @@
+addi r1,r0,#5
+addi r2,r0,#6
+addi r3,r0,#3
+loop:
+addi r1,r1,#1
+addi r2,r2,#2
+subi r3,r3,#1
+sgti r4,r3,#0
+bnez r4,loop
+jal procedure
+nop
+addi r7,r0,#2
+addi r8,r0,#3
+j exit
+
+
+procedure: 
+addi r5,r0,#100
+addi r6,r0,#200
+jr r31
+
+exit:
+nop 
