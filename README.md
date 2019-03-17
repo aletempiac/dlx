@@ -27,6 +27,7 @@ The design present in the `Synthesis` folder is fully synthesizable and [DLX.scr
 ### Developers: Alessandro Tempia Calvino, Fausto Chiatante
 Possible improvements in background:
 - Add floating-point units to the design
+- Multi-cycle execution
 
 [report]: Report.pdf
 [assembler.sh]: Simulation/assembler.sh
